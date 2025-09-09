@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Precificação</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3494;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: #fcc40c;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #e0b00b;
+    }
+    .resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f8ff;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 1.2em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Calculadora de Precificação</h2>
+    <label>Valor do Produto:</label>
+    <input type="number" id="produto" placeholder="Ex: 100">
+
+    <label>% IPI:</label>
+    <input type="number" id="ipi" placeholder="Ex: 10">
+
+    <label>% DIFAL:</label>
+    <input type="number" id="difal" placeholder="Ex: 12">
+
+    <label>% Frete:</label>
+    <input type="number" id="frete" placeholder="Ex: 5">
+
+    <label>% Margem:</label>
+    <input type="number" id="margem" placeholder="Ex: 20">
+
+    <button onclick="calcular()">Calcular Preço Final</button>
+
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script>
+    function calcular() {
+      const produto = parseFloat(document.getElementById('produto').value) || 0;
+      const ipiPerc = parseFloat(document.getElementById('ipi').value) / 100 || 0;
+      const difalPerc = parseFloat(document.getElementById('difal').value) / 100 || 0;
+      const fretePerc = parseFloat(document.getElementById('frete').value) / 100 || 0;
+      const margemPerc = parseFloat(document.getElementById('margem').value) / 100 || 0;
+
+      const ipi = produto * ipiPerc;
+      const difal = (produto + ipi) * difalPerc;
+      const frete = (produto + ipi) * fretePerc;
+      const margem = (produto + ipi + difal + frete) * margemPerc;
+
+      const precoFinal = produto + ipi + difal + frete + margem;
+
+      document.getElementById('resultado').innerText = "Preço Final: R$ " + precoFinal.toFixed(2);
+    }
+  </script>
+</body>
+</html>
